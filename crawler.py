@@ -2,8 +2,8 @@
 import wget
 import os
 
-band = "the offspring"
-# band = input("Type the name of the band: ")
+# band = "the offspring"
+band = input("Type the name of the band: ")
 pages = 3
 songs_dict = {}
 songs_list = []
@@ -63,3 +63,7 @@ for f in files:
 f=open('results/'+band.replace('+','_')+'_setlister.txt','w')
 f.writelines(songs_list)
 f.close()
+
+print("\n_____________\n\nRESULT:\n")
+for song in songs_list:
+	print (song)
