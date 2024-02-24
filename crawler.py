@@ -4,7 +4,7 @@ import os
 
 # band = "the offspring"
 band = input("Type the name of the band: ")
-pages = 3
+pages = 2
 songs_dict = {}
 songs_list = []
 
@@ -15,18 +15,11 @@ for page in range(pages):
     band_filename = wget.download(url,out='band.html')
     band_file = open(band_filename)
     band_html = band_file.read()
-    artists = band_html.split('<h3>Artist</h3>')
-    artist = artists[1].split('href="')
-    link = artist[1].split('" rel')
-    url = 'http://www.setlist.fm/'+link[0]
-    url = url.replace('&amp;','&')
-    setlists_filename = wget.download(url,out='setlists.html')
-    setlists_file = open(setlists_filename)
-    setlists_html = setlists_file.read()
-    setlists_split = setlists_html.split('href="setlist/')[1:11]
-    for setlist in setlists_split:
-        link = setlist.split('" title')
-        url = 'http://www.setlist.fm/setlist/'+link[0]
+    setlists = band_html.split(' setlistPreview')
+    for setlist in setlists[1:]:
+        link = setlist.split('href="')[1].split('.html')
+        url = 'http://www.setlist.fm/'+link[0]+".html"
+        url = url.replace('&amp;','&')
         setlist_filename = wget.download(url,out='setlist.html')
         setlist_file = open(setlist_filename)
         setlist_html = setlist_file.read()
